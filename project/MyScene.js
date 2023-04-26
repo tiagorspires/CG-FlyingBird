@@ -1,6 +1,8 @@
 import { CGFscene, CGFcamera, CGFaxis, CGFappearance, CGFshader, CGFtexture } from "../lib/CGF.js";
 import { MyPlane } from "./MyPlane.js";
 import { MySphere } from "./MySphere.js";
+import { MyPanorama } from "./MyPanorama.js";
+
 /**
  * MyScene
  * @constructor
@@ -26,8 +28,8 @@ export class MyScene extends CGFscene {
     //Initialize scene objects
     this.axis = new CGFaxis(this);
     this.plane = new MyPlane(this,30);
-    this.sphere = new MySphere(this,200,32,16, "images/earth.jpg");
-
+    this.sphere = new MySphere(this,20,32,16, "images/earth.jpg");
+    this.panorama = new MyPanorama(this, "images/panorama4.jpg");
     //Objects connected to MyInterface
     this.displayAxis = true;
     this.scaleFactor = 1;
@@ -53,6 +55,14 @@ this.appearance2.setDiffuse(1.0, 1.0, 1.0, 1.0);
     this.lights[0].setDiffuse(1.0, 1.0, 1.0, 1.0);
     this.lights[0].enable();
     this.lights[0].update();
+
+    this.lights[1].setPosition(0, 10, 10, 1);
+    this.lights[1].setAmbient(1.0, 1.0, 1.0, 1.0);
+    this.lights[1].setDiffuse(1.0, 1.0, 1.0, 1.0);
+    this.lights[1].enable();
+    this.lights[1].update();
+
+    
   }
   initCameras() {
     this.camera = new CGFcamera(
@@ -84,7 +94,7 @@ this.appearance2.setDiffuse(1.0, 1.0, 1.0, 1.0);
     if (this.displayAxis) this.axis.display();
 
     // ---- BEGIN Primitive drawing section
-
+    
     this.pushMatrix();
     this.appearance.apply();
     this.translate(0,-100,0);
@@ -92,8 +102,8 @@ this.appearance2.setDiffuse(1.0, 1.0, 1.0, 1.0);
     this.rotate(-Math.PI/2.0,1,0,0);
     this.plane.display();
     this.popMatrix();
-    this.sphere.display();
-
+    //this.sphere.display();
+    this.panorama.display();
     // ---- END Primitive drawing section
   }
 }
