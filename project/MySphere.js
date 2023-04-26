@@ -13,10 +13,10 @@ import {CGFobject,CGFtexture,CGFappearance} from '../lib/CGF.js';
 
 export class MySphere extends CGFobject {
 
-    constructor(scene, radius, slices, stacks, textureFile) {
+    constructor(scene, radius, slices, stacks, textureFile, isSphere) {
       // call the CGFobject constructor
       super(scene);
-  
+      this.isSphere = isSphere;
       // set default values for missing arguments
       this.radius = radius || 1;
       this.slices = slices || 16;
@@ -52,15 +52,18 @@ export class MySphere extends CGFobject {
           const phi = slice * 2 * Math.PI / this.slices;
           const sinPhi = Math.sin(phi);
           const cosPhi = Math.cos(phi);
-  
+          
           const x = cosPhi * sinTheta;
           const y = cosTheta;
           const z = sinPhi * sinTheta;
           const u = 1 - slice / this.slices;
           const v = 1 - stack / this.stacks;
-  
           this.vertices.push(this.radius * x, this.radius * y, this.radius * z);
+          if (this.isSphere) {
           this.normals.push(x, y, z);
+          } else {
+          this.normals.push(-x, -y, -z);
+          }
           this.texCoords.push(u, v);
         }
       }

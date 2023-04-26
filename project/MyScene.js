@@ -28,11 +28,15 @@ export class MyScene extends CGFscene {
     //Initialize scene objects
     this.axis = new CGFaxis(this);
     this.plane = new MyPlane(this,30);
-    this.sphere = new MySphere(this,20,32,16, "images/earth.jpg");
+    this.sphere = new MySphere(this,20,32,16, "images/earth.jpg", true);
     this.panorama = new MyPanorama(this, "images/panorama4.jpg");
     //Objects connected to MyInterface
     this.displayAxis = true;
     this.scaleFactor = 1;
+
+    this.displaySphere = false;
+    this.displayPanorama = false;
+
 
     this.enableTextures(true);
 
@@ -102,8 +106,11 @@ this.appearance2.setDiffuse(1.0, 1.0, 1.0, 1.0);
     this.rotate(-Math.PI/2.0,1,0,0);
     this.plane.display();
     this.popMatrix();
-    //this.sphere.display();
-    this.panorama.display();
+    //this.scale(200,200,200);
+    if (this.displaySphere)
+      this.sphere.display();
+    if (this.displayPanorama)
+      this.panorama.display();
     // ---- END Primitive drawing section
   }
 }
