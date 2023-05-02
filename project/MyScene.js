@@ -2,7 +2,7 @@ import { CGFscene, CGFcamera, CGFaxis, CGFappearance, CGFshader, CGFtexture } fr
 import { MyPlane } from "./MyPlane.js";
 import { MySphere } from "./MySphere.js";
 import { MyPanorama } from "./MyPanorama.js";
-
+import { MyBird } from "./MyBird.js";
 /**
  * MyScene
  * @constructor
@@ -30,6 +30,7 @@ export class MyScene extends CGFscene {
     this.plane = new MyPlane(this,30);
     this.sphere = new MySphere(this,20,32,16, "images/earth.jpg", true);
     this.panorama = new MyPanorama(this, "images/panorama4.jpg");
+    this.bird = new MyBird (this);
     //Objects connected to MyInterface
     this.displayAxis = true;
     this.scaleFactor = 1;
@@ -112,5 +113,7 @@ this.appearance2.setDiffuse(1.0, 1.0, 1.0, 1.0);
     if (this.displayPanorama)
       this.panorama.display();
     // ---- END Primitive drawing section
+    this.bird.display();
   }
+  
 }

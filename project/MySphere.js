@@ -58,11 +58,13 @@ export class MySphere extends CGFobject {
           const z = sinPhi * sinTheta;
           const u = 1 - slice / this.slices;
           const v = 1 - stack / this.stacks;
-          this.vertices.push(this.radius * x, this.radius * y, this.radius * z);
+          
           if (this.isSphere) {
-          this.normals.push(x, y, z);
+            this.normals.push(-x, -y, -z);
+            this.vertices.push(-this.radius * x, -this.radius * y, -this.radius * z);
           } else {
-          this.normals.push(-x, -y, -z);
+            this.normals.push(x, y, z);
+            this.vertices.push(this.radius * x, this.radius * y, this.radius * z);
           }
           this.texCoords.push(u, v);
         }
