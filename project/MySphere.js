@@ -105,7 +105,8 @@ export class MySphere extends CGFobject {
   
     // method to display the sphere
     display() {
-      this.appearance.apply();
+      if(this.isSphere)
+        this.appearance.apply();
       super.display();
     }
   }

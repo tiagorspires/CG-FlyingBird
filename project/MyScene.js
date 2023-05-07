@@ -3,6 +3,7 @@ import { MyPlane } from "./MyPlane.js";
 import { MySphere } from "./MySphere.js";
 import { MyPanorama } from "./MyPanorama.js";
 import { MyBird } from "./MyBird.js";
+import {MyTerrain} from "./MyTerrain.js"
 /**
  * MyScene
  * @constructor
@@ -27,7 +28,7 @@ export class MyScene extends CGFscene {
 
     //Initialize scene objects
     this.axis = new CGFaxis(this);
-    this.plane = new MyPlane(this,30);
+    this.plane = new MyTerrain(this,30);
     this.sphere = new MySphere(this,20,32,16, "images/earth.jpg", true);
     this.panorama = new MyPanorama(this, "images/panorama4.jpg");
     this.bird = new MyBird (this);
@@ -37,7 +38,7 @@ export class MyScene extends CGFscene {
 
     this.displaySphere = false;
     this.displayPanorama = false;
-
+    this.displayBird = false;
 
     this.enableTextures(true);
 
@@ -100,20 +101,41 @@ this.appearance2.setDiffuse(1.0, 1.0, 1.0, 1.0);
 
     // ---- BEGIN Primitive drawing section
     
-    this.pushMatrix();
-    this.appearance.apply();
-    this.translate(0,-100,0);
-    this.scale(400,400,400);
-    this.rotate(-Math.PI/2.0,1,0,0);
     this.plane.display();
-    this.popMatrix();
     //this.scale(200,200,200);
     if (this.displaySphere)
       this.sphere.display();
     if (this.displayPanorama)
       this.panorama.display();
-    // ---- END Primitive drawing section
+
+    //if (this.displayBird)
+    
+    this.pushMatrix()
+    this.scale(5,5,5,1);
+    if(this.displayBird)
     this.bird.display();
+    this.popMatrix()
+    
+    // ---- END Primitive drawing section
+    this.checkKeys();
+    
   }
+  checkKeys() {
+    var text="Keys pressed: ";
+    var keysPressed=false;
+    // Check for key codes e.g. in https://keycode.info/
+    if (this.gui.isKeyPressed("KeyW")) {
+    text+=" W ";
+    keysPressed=true;
+    }
+    if (this.gui.isKeyPressed("KeyS")) {
+    text+=" S ";
+    keysPressed=true;
+    }
+    if (keysPressed)
+    console.log(text);
+    }
+
+  
   
 }

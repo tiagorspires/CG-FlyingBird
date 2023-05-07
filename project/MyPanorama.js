@@ -6,10 +6,14 @@ export class MyPanorama extends CGFscene {
         super(scene);
         this.scene = scene;
         this.sphere = new MySphere(scene,200,32,64,texture, false);
+        this.texture = new CGFtexture(this.scene, texture);
   
       // Cria um material com componente emissiva e a textura associada
+      this.material = new CGFappearance(this.scene);
+      this.material.setEmission(1, 1, 1, 1); // define a cor emissiva como branco
+      this.material.setTexture(this.texture);
+      this.material.setAmbient(0.5,0.5,0.5,1);
       
-      //this.material.setEmissive([1, 1, 1, 1]); // define a cor emissiva como branco
   
       // Inverte as normais da esfera
       //this.sphere.invertNormals();
@@ -19,6 +23,7 @@ export class MyPanorama extends CGFscene {
 
       this.scene.pushMatrix();
       this.scene.rotate(Math.PI,1,0,0);
+      this.material.apply();
       this.sphere.display();
       this.scene.popMatrix();
     }

@@ -104,7 +104,7 @@ export class MyBird extends CGFobject {
   
       // Desenha a asa inferior direita da ave
       this.scene.pushMatrix();
-      this.scene.translate(3, 0.25, 1.29);
+      this.scene.translate(3, 0.25, 1.35);
       this.scene.rotate(Math.PI / 3, 0, 0, 1);
       this.scene.rotate(-Math.PI / 8, 1, 0 , 0);
       this.scene.rotate(Math.PI / 2, 0, 1 , 0);
@@ -114,7 +114,7 @@ export class MyBird extends CGFobject {
       //Desenha a asa inferior esquerda da ave
       
       this.scene.pushMatrix();
-      this.scene.translate(-3, 0.25, 1.29);
+      this.scene.translate(-3, 0.25, 1.35);
       this.scene.rotate(-Math.PI / 3, 0, 0, 1);
       this.scene.rotate(-Math.PI / 8, 1, 0 , 0);
       this.scene.rotate(-Math.PI / 2, 0, 1 , 0);
