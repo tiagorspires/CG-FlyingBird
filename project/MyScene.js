@@ -4,6 +4,7 @@ import { MySphere } from "./MySphere.js";
 import { MyPanorama } from "./MyPanorama.js";
 import { MyBird } from "./MyBird.js";
 import {MyTerrain} from "./MyTerrain.js"
+import { MyBirdEgg } from "./MyBirdEgg.js";
 /**
  * MyScene
  * @constructor
@@ -32,6 +33,20 @@ export class MyScene extends CGFscene {
     this.sphere = new MySphere(this,20,32,16, "images/earth.jpg", true);
     this.panorama = new MyPanorama(this, "images/panorama4.jpg");
     this.bird = new MyBird (this);
+
+    // create an array to hold the eggs
+    this.eggs = [];
+
+    // add four eggs to the array with random positions and rotations
+    for (let i = 0; i < 5; i++) {
+      
+      // create a new egg object
+      let egg = new MyBirdEgg(this,"images/egg.jpg");
+      this.eggs.push(egg);
+    }
+
+    //this.egg = new MyBirdEgg(this,'images/egg.jpg');
+
     //Objects connected to MyInterface
     this.displayAxis = true;
     this.scaleFactor = 1;
@@ -115,6 +130,10 @@ this.appearance2.setDiffuse(1.0, 1.0, 1.0, 1.0);
     if(this.displayBird)
     this.bird.display();
     this.popMatrix()
+
+    for (var i = 0; i < 5; i++) {
+    this.eggs[i].display(); 
+    }
     
     // ---- END Primitive drawing section
     this.checkKeys();

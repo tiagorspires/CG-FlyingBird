@@ -27,9 +27,69 @@ export class MyBird extends CGFobject {
 
       // Cria a asa inferior da ave
       this.lowerWing = new MyTrapezoid(scene, 1, 1, 1, 0.2,"images/body.jpg");
+
+      this.velocity = 0;
+      this.angleV = 0;
+      this.x = 0;
+      this.y = 0;
+      this.z = 0;
+      this.angle = 0;
+      
+    }
+    accelerate(v){
+      this.velocity = v;
+    }
+
+    turn(v){
+      this.angleV = v/(Math.PI*2);
     }
   
     display() {
+      this.scene.pushMatrix();
+      
+      if(this.scene.gui.isKeyPressed("KeyW")){
+        this.accelerate(0.2);
+        console.log(this.velocity)
+      }else if(this.scene.gui.isKeyPressed("KeyS")){
+        this.accelerate(-0.2);
+        console.log(this.velocity)
+      }else{
+        this.accelerate(0);
+      }
+      if(this.scene.gui.isKeyPressed("KeyA")){
+        this.turn(0.1);
+        console.log(this.angle)
+      }else if(this.scene.gui.isKeyPressed("KeyD")){
+        this.turn(-0.1);
+        console.log(this.angle)
+      }else{
+        this.turn(0);
+      }
+      this.x += this.velocity * Math.sin(this.angle)
+      this.y += this.velocity * Math.cos(this.angle)
+      this.angle += this.angleV;
+      console.log("xvalue:" + this.x +"xvelocity" +  (this.velocity * Math.sin(this.angle)))
+      
+      
+      this.scene.translate(this.x,this.z,this.y);
+      this.scene.rotate(this.angle,0,1,0);
+      if (this.angleV > 0){
+        this.scene.rotate(-Math.PI/6,0,0,1);
+      }else if(this.angleV < 0){
+        this.scene.rotate(Math.PI/6,0,0,1);
+      }else {
+        this.scene.rotate(0,0,0,1);
+      }
+
+      if(this.scene.gui.isKeyPressed("KeyR")){
+        this.scene.rotate(-this.angle,0,1,0);
+        this.scene.translate(-this.x,0,-this.y)
+        this.angle = 0
+        this.x = 0;
+        this.y = 0;
+        
+      }
+
       // Desenha o corpo da ave
       this.scene.pushMatrix();
       this.scene.rotate(-Math.PI/10,1,0,0)
@@ -120,6 +180,9 @@ export class MyBird extends CGFobject {
       this.scene.rotate(-Math.PI / 2, 0, 1 , 0);
       this.lowerWing.display();
       this.scene.popMatrix();
+
+      this.scene.popMatrix();
+      
     }
   }
   
