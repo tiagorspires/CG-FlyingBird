@@ -1,40 +1,64 @@
+import {CGFobject,CGFtexture,CGFappearance} from '../lib/CGF.js';
+import { MySphere } from "./MySphere.js";
+import { MyDonut } from "./MyDonut.js";
+
 export class MyNest extends CGFobject{
-    constructor(scene, x, y, z) {
-      this.scene = scene;
-      this.x = x;
-      this.y = y;
-      this.z = z;
+  constructor(scene, radius, height, segments,texture) {
+
+    super(scene);
+    // Calculate the angle increment for each segment
   
-      this.material = new CGFappearance(this.scene);
-      this.material.setAmbient(0.1, 0.1, 0.1, 1);
-      this.material.setDiffuse(0.9, 0.9, 0.9, 1);
-      this.material.setSpecular(0.1, 0.1, 0.1, 1);
-      this.material.setShininess(10);
-  
-      this.texture = new CGFtexture(this.scene, 'textures/nest.png');
-  
-      this.nest = new MyCylinder(scene, 0.2, 1, 1, 8, 1);
-      this.stick1 = new MyCylinder(scene, 0.05, 0.05, 1.5, 8, 1);
-      this.stick2 = new MyCylinder(scene, 0.05, 0.05, 1.5, 8, 1);
-  
-      this.stick1.setPosition(0, 0.75, 0);
-      this.stick2.setPosition(0, 0.75, 0);
-  
-      this.nest.setMaterial(this.material);
-      this.nest.setTexture(this.texture);
-      this.stick1.setMaterial(this.material);
-      this.stick2.setMaterial(this.material);
-    }
-  
-    display() {
-      this.scene.pushMatrix();
-      this.scene.translate(this.x, this.y, this.z);
-  
-      this.stick1.display();
-      this.stick2.display();
-      this.nest.display();
-  
-      this.scene.popMatrix();
-    }
+    this.sphere = new MySphere(scene, 2, 20,20,".jpg",true);
+    this.donut = new MyDonut(scene,2.3,2,0.2,300,"images/nest.jpg");
+
   }
+
+  display() {
+    this.scene.pushMatrix();
+    this.scene.scale(1,0.1,1);
+    this.sphere.display();
+    this.scene.popMatrix();
+
+    this.scene.pushMatrix();
+    this.scene.rotate(Math.PI/2,1,0,0);
+    this.scene.translate(0,0,-0.1);
+    this.donut.display();
+    this.scene.popMatrix();
+
+    this.scene.pushMatrix();
+    this.scene.scale(1.1,1,1.1);
+    this.scene.rotate(Math.PI/2,1,0,0);
+    this.scene.translate(0,0,-0.3);
+    this.donut.display();
+    this.scene.popMatrix();
+
+    this.scene.pushMatrix();
+    this.scene.scale(1.2,1,1.2);
+    this.scene.rotate(Math.PI/2,1,0,0);
+    this.scene.translate(0,0,-0.5);
+    this.donut.display();
+    this.scene.popMatrix();
+
+    this.scene.pushMatrix();
+    this.scene.scale(1.3,1,1.3);
+    this.scene.rotate(Math.PI/2,1,0,0);
+    this.scene.translate(0,0,-0.7);
+    this.donut.display();
+    this.scene.popMatrix();
+
+    this.scene.pushMatrix();
+    this.scene.scale(1.3,1,1.3);
+    this.scene.rotate(Math.PI/2,1,0,0);
+    this.scene.translate(0,0,-0.9);
+    this.donut.display();
+    this.scene.popMatrix();
+
+    this.scene.pushMatrix();
+    this.scene.scale(1.4,1,1.4);
+    this.scene.rotate(Math.PI/2,1,0,0);
+    this.scene.translate(0,0,-1.1);
+    this.donut.display();
+    this.scene.popMatrix();
   
+  }
+}

@@ -34,6 +34,8 @@ export class MyBird extends CGFobject {
       this.y = 0;
       this.z = 0;
       this.angle = 0;
+
+      this.heightValue = 0;
       
     }
     accelerate(v){
@@ -43,15 +45,41 @@ export class MyBird extends CGFobject {
     turn(v){
       this.angleV = v/(Math.PI*2);
     }
+
+    update(t) {
+      const oscillationTime = 1; // Tempo para uma oscilação completa (ida e volta)
+      const verticalAmplitude = 0.5; // Amplitude vertical da oscilação
+    
+      const elapsedTimeSecs = (t - this.animStartTimeSecs) % oscillationTime;
+      const oscillationPhase = (elapsedTimeSecs / oscillationTime) * 2 * Math.PI; // Fase da oscilação (0 a 2pi)
+    
+      // Calcula a posição vertical da ave com base na amplitude e na fase da oscilação
+      const verticalOffset = verticalAmplitude * Math.sin(oscillationPhase);
+    
+      // Atualiza a posição vertical da ave
+      this.y = verticalOffset;
+    
+      // Restante do código da função update...
+    
+      this.scene.translate(this.x, this.z, this.y);
+    }
+
+    /*
+    update(t){
+      const animTime = 1
+
+      var elapsedTimeSecs=(timeSinceAppStart-this.animStartTimeSecs )%animTime;
+      
+      this.heightValue = Math.sin(Math.PI * 2 *elapsedTimeSecs);
+    }
+    */
   
     display() {
-      this.scene.pushMatrix();
+      
+    this.scene.pushMatrix();
       
       if(this.scene.gui.isKeyPressed("KeyW")){
         this.accelerate(0.2);
-        console.log(this.velocity)
-      }else if(this.scene.gui.isKeyPressed("KeyS")){
-        this.accelerate(-0.2);
         console.log(this.velocity)
       }else{
         this.accelerate(0);
@@ -69,7 +97,6 @@ export class MyBird extends CGFobject {
       this.y += this.velocity * Math.cos(this.angle)
       this.angle += this.angleV;
       console.log("xvalue:" + this.x +"xvelocity" +  (this.velocity * Math.sin(this.angle)))
-      
       
       this.scene.translate(this.x,this.z,this.y);
       this.scene.rotate(this.angle,0,1,0);
@@ -152,16 +179,6 @@ export class MyBird extends CGFobject {
       this.wing.display();
       this.scene.popMatrix();
 
-      /*
-      
-      // Desenha a asa inferior esquerda da ave
-      this.scene.pushMatrix();
-      this.scene.translate(-1.25, -0.25, 1.25);
-      this.scene.rotate(-Math.PI / 2, 0, 1, 0);
-      this.lowerWing.display();
-      this.scene.popMatrix();
-      */
-  
       // Desenha a asa inferior direita da ave
       this.scene.pushMatrix();
       this.scene.translate(3, 0.25, 1.35);
@@ -174,6 +191,7 @@ export class MyBird extends CGFobject {
       //Desenha a asa inferior esquerda da ave
       
       this.scene.pushMatrix();
+      this.scene.translate(0,this.heightValue,0);
       this.scene.translate(-3, 0.25, 1.35);
       this.scene.rotate(-Math.PI / 3, 0, 0, 1);
       this.scene.rotate(-Math.PI / 8, 1, 0 , 0);

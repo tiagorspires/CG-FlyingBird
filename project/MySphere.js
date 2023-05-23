@@ -31,6 +31,8 @@ export class MySphere extends CGFobject {
       this.appearance.setDiffuse(0.9, 0.9, 0.9, 1);
       this.appearance.setSpecular(0.1, 0.1, 0.1, 1);
       this.appearance.setShininess(10.0);
+
+      
   
       // create the sphere geometry
       this.initBuffers();
