@@ -15,7 +15,7 @@ import { MyBirdEgg } from "./MyBirdEgg.js";
 import { MyBillboard } from "./MyBillboard.js";
 import { MyTreeGroupPatch } from "./MyTreeGroupPatch.js";
 import { MyTreeRowPatch } from "./MyTreeRowPatch.js";
-import { MyAnimatedObject } from "./MyAnimatedObject.js";
+//import { MyAnimatedBird } from "./MyAnimatedBird.js";
 import { MyNest } from "./MyNest.js";
 /**
  * MyScene
@@ -29,18 +29,6 @@ export class MyScene extends CGFscene {
     this.setUpdatePeriod(50); // **at least** 50 ms between animations
 
     this.appStartTime = Date.now(); // current time in milisecs
-
-    this.animVal1=0;
-    this.animVal2=0;
-    this.animVal3=0;
-
-    //#region Pars for anim 3
-    this.startVal=0;
-    this.endVal=6;
-    this.animStartTimeSecs=2;
-    this.animDurationSecs=3;
-    this.length=(this.endVal-this.startVal);
-
 
     super.init(application);
 
@@ -65,12 +53,12 @@ export class MyScene extends CGFscene {
     this.treeGroupPatch = new MyTreeGroupPatch(this);
     this.treeRowPatch = new MyTreeRowPatch(this);
     this.nest = new MyNest(this,1,1,1);
-    //this.animObj= new MyAnimatedObject(this);
+    //this.animBird= new MyAnimatedBird(this);
 
     // create an array to hold the eggs
     this.eggs = [];
 
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 11; i++) {
       // create a new egg object
       let egg = new MyBirdEgg(this, "images/egg.jpg", "images/heightmap.jpg");
       this.eggs.push(egg);
@@ -131,27 +119,16 @@ export class MyScene extends CGFscene {
     this.setShininess(10.0);
   }
 
-  update(t)
+ /* update(t)
   {
-      // Update without considering time - BAD
-      this.animVal1+=0.1;
+    // Continuous animation based on current time and app start time 
+    var timeSinceAppStart = (t - this.appStartTime) / 1000.0;
+    
+    this.animBird.update(timeSinceAppStart);
 
-      //#region Ex.2 
-      // Continuous animation based on current time and app start time 
-      var timeSinceAppStart=(t-this.appStartTime)/1000.0;
-      
-      this.animVal2=-2+2*Math.sin(timeSinceAppStart*Math.PI*3);
-
-      //#region Ex. 3
-      // Animation based on elapsed time since animation start
-
-      var elapsedTimeSecs=timeSinceAppStart-this.animStartTimeSecs;
-
-      if (elapsedTimeSecs>=0 && elapsedTimeSecs<=this.animDurationSecs)
-        this.animVal3=this.startVal+elapsedTimeSecs/this.
-      this.animObj.update(timeSinceAppStart);
-    }
-
+    this.checkKeys();
+  }
+  */
 
   display() {
     // ---- BEGIN Background, camera and axis setup
@@ -170,7 +147,14 @@ export class MyScene extends CGFscene {
     // ---- BEGIN Primitive drawing section
 
     this.plane.display();
+    
+
+    this.pushMatrix();
+    this.translate(0,40,0);
+    
     if (this.displaySphere) this.sphere.display();
+    this.popMatrix();
+
     if (this.displayPanorama) this.panorama.display();
     
     this.pushMatrix();
@@ -179,25 +163,36 @@ export class MyScene extends CGFscene {
     if (this.displayBird) this.bird.display();
     this.popMatrix();
 
-    //this.animObj.display();
+    /*
+    this.pushMatrix();
+    this.scale(5, 5, 5, 1);
+    this.animBird.display();
+    this.popMatrix();
+    */
 
     if(this.displayEggs){
-      for (var i = 0; i < 5; i++) {
+      for (var i = 0; i < 10; i++) {
         this.eggs[i].display();
       }
     }
 
     this.pushMatrix();
+    this.translate(100,-58.5,0,1);
     this.scale(5, 5, 5, 1);
     if(this.displayNest) this.nest.display();
     this.popMatrix();
 
-    
+    this.pushMatrix();
+    this.translate(100,-51.5,0,1);
+    this.translate(-this.eggs[10].x,-this.eggs[10].y,-this.eggs[10].z);
+    this.eggs[10].display();
+    this.popMatrix();
 
 
     //this.billboard.display(10,10,10);
     this.pushMatrix();
     this.scale(10, 10, 10, 1);
+    this.translate(-9,-5,0,1);
     if(this.displayTreeGroupPatch) this.treeGroupPatch.display();
     this.pushMatrix();
     this.translate(0,0,5,1);

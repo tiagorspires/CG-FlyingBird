@@ -10,9 +10,9 @@ export class MyBirdEgg extends CGFobject {
         
         super(scene);
         this.scene = scene;
-        this.x = Math.random() * 50 - 10;
-        this.y = -30;
-        this.z = Math.random() * 50 - 10;
+        this.x = Math.random() * 180;
+        this.y = -40;
+        this.z = Math.random() * 180;
         this.angle = Math.random() * Math.PI * 2;
         this.texture = new CGFtexture(this.scene, texture);
         this.sphere = new MySphere(this.scene,5,40, 8,texture,true);

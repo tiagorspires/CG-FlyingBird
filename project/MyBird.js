@@ -64,15 +64,6 @@ export class MyBird extends CGFobject {
       this.scene.translate(this.x, this.z, this.y);
     }
 
-    /*
-    update(t){
-      const animTime = 1
-
-      var elapsedTimeSecs=(timeSinceAppStart-this.animStartTimeSecs )%animTime;
-      
-      this.heightValue = Math.sin(Math.PI * 2 *elapsedTimeSecs);
-    }
-    */
   
     display() {
       
